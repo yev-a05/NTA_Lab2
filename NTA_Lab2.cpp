@@ -12,6 +12,18 @@
 using namespace std;
 using namespace chrono;
 
+
+// Функція для перевірки, чи є число простим
+bool is_prime(long long n) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
+    for (long long i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) return false;
+    }
+    return true;
+}
+
 // Функція для перевірки, чи є число генератором
 bool is_generator(long long a, long long p) {
     if (a >= p) return false;
@@ -29,9 +41,24 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
+
     long long p, a, b;
-    cout << "Введіть просте число p: ";
-    cin >> p;
+
+    // Перевірка на простоту числа p
+    while (true) {
+        cout << "Введіть просте число p: ";
+        cin >> p;
+
+        if (is_prime(p)) {
+            cout << "Число p є простим числом.\n";
+            break;
+        }
+        else {
+            cout << "Число p не є простим. Спробуйте ще раз.\n";
+        }
+    }
+
+    // Перевірка на генератор a
 
     while (true) {
         cout << "Введіть можливий генератор a: ";
