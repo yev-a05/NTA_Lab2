@@ -1,7 +1,7 @@
 ﻿// NTA_Lab2.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 
-#include <iostream>
+/*#include <iostream>
 #include <cmath>
 #include <chrono>
 #include <vector>
@@ -61,7 +61,7 @@ int main() {
     // Перевірка на генератор a
 
     while (true) {
-        cout << "Введіть можливий генератор a: ";
+        cout << "Введіть генератор a: ";
         cin >> a;
 
         if (is_generator(a, p)) {
@@ -82,7 +82,7 @@ int main() {
     vector<long long> solutions;
 
     // Звичайний перебір для знаходження всіх можливих x
-    for (long long x = 0; x <= p - 1; ++x) {
+    for (long long x = 0; x <= p - 2; ++x) {
         if (static_cast<long long>(pow(a, x)) % p == b) {
             solutions.push_back(x);
         }
@@ -109,4 +109,4 @@ int main() {
     }
 
     return 0;
-}
+}*/
