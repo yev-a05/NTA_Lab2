@@ -10,7 +10,7 @@ using namespace std;
 
 // Функція для перевірки, чи є число генератором
 bool is_generator(long long a, long long n) {
-    int p = n+1;
+    int p = n + 1;
     if (a >= p) return false;
 
     set<long long> residues;
@@ -25,7 +25,7 @@ bool is_generator(long long a, long long n) {
 // Функція для розкладу числа n на прості множники
 vector<pair<int, int>> primeFactorization(int n) {
     vector<pair<int, int>> factors;
-    
+
     // Розклад на 2
     int count = 0;
     while (n % 2 == 0) {
@@ -56,6 +56,31 @@ vector<pair<int, int>> primeFactorization(int n) {
     return factors;
 }
 
+// Функція для обчислення (base^exp) % mod
+int modExp(int base, int exp, int mod) {
+    int result = 1;
+    while (exp > 0) {
+        if (exp % 2 == 1) {
+            result = (result * base) % mod;
+        }
+        base = (base * base) % mod;
+        exp /= 2;
+    }
+    return result;
+}
+
+// Функція для обчислення таблиць значень r_{p_i,j}
+void computeTables(int n, long long a, const vector<pair<int, int>>& factors) {
+    for (const auto& factor : factors) {
+        int p = factor.first;
+        cout << "Таблиця для p = " << p << ":\n";
+        for (int j = 0; j < p; ++j) {
+            int r = modExp(a, (n * j) / p, n+1);
+            cout << "r(" << p << "," << j << ") = " << r << endl;
+        }
+    }
+}
+
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(1251);
@@ -63,8 +88,8 @@ int main() {
 
     long long n, a, b;
 
-        cout << "Введіть порядок групи n: ";
-        cin >> n;
+    cout << "Введіть порядок групи n: ";
+    cin >> n;
 
     // Перевірка на генератор a
 
@@ -73,7 +98,7 @@ int main() {
         cin >> a;
 
         if (is_generator(a, n)) {
-            cout << "Число a є генератором групи Z*_" << n+1 << ".\n";
+            cout << "Число a є генератором групи Z*_" << n + 1 << ".\n";
             break;
         }
         else {
@@ -88,13 +113,16 @@ int main() {
 
     cout << "Канонічний розклад числа " << n << ": ";
     for (size_t i = 0; i < factors.size(); ++i) {
-        std::cout << factors[i].first << "^" << factors[i].second;
+        cout << factors[i].first << "^" << factors[i].second;
         if (i != factors.size() - 1) {
-            std::cout << " · ";
+            cout << " · ";
         }
     }
     cout << endl;
 
+    // Обчислення таблиць значень r_{p_i,j}
+    computeTables(n, a, factors);
 
     return 0;
 }
+
