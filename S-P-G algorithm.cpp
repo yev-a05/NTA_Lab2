@@ -25,7 +25,7 @@ bool is_generator(long long a, long long n) {
 // Функція для розкладу числа n на прості множники
 vector<pair<int, int>> primeFactorization(int n) {
     vector<pair<int, int>> factors;
-
+    
     // Розклад на 2
     int count = 0;
     while (n % 2 == 0) {
