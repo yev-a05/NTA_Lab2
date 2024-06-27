@@ -5,10 +5,11 @@ FROM gcc:latest
 WORKDIR /usr/src/app
 
 # Copy the current directory contents into the container at /usr/src/app
-COPY . .
+COPY BruteForce.cpp /usr/src/app/
+COPY S-P-G_algorithm.cpp /usr/src/app/
 
 # Compile the C++ program
-RUN g++ -o myapp main.cpp Functions.cpp
+RUN g++ -o myapp BruteForce.cpp S-P-G_algorithm.cpp
 
 # Command to run the executable
 CMD ["./myapp"]
