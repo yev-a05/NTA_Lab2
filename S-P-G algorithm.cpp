@@ -5,8 +5,10 @@
 #include <algorithm>
 #include <windows.h>
 #include <numeric>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 // Функція для перевірки, чи є число генератором
 bool is_generator(long long a, long long n) {
@@ -173,6 +175,8 @@ int main() {
     cout << "Введіть елемент b: ";
     cin >> b;
 
+    auto start_time = high_resolution_clock::now();
+
     vector<pair<int, int>> factors = primeFactorization(n);
 
     cout << "Канонічний розклад числа " << n << ": ";
@@ -218,10 +222,15 @@ int main() {
     // Обчислення x mod n за допомогою китайської теореми про лишки
     int x = chineseRemainderTheorem(congruences, n);
 
+    auto end_time = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end_time - start_time).count();
+
     cout << "Дискретний логарифм x = " << x << endl;
+    cout << "Час виконання програми: " << duration << " мс" << endl;
 
     return 0;
 }
+
 
 
 

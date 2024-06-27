@@ -12,7 +12,6 @@
 using namespace std;
 using namespace chrono;
 
-
 // Функція для перевірки, чи є число простим
 bool is_prime(long long n) {
     if (n <= 1) return false;
@@ -59,7 +58,6 @@ int main() {
     }
 
     // Перевірка на генератор a
-
     while (true) {
         cout << "Введіть генератор a: ";
         cin >> a;
@@ -97,6 +95,9 @@ int main() {
         }
     }
 
+    auto end_time = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end_time - start_time).count();
+
     if (!solutions.empty()) {
         cout << "Знайдені розв'язки: ";
         for (const auto& sol : solutions) {
@@ -107,6 +108,8 @@ int main() {
     else {
         cout << "Розв'язок не знайдено." << endl;
     }
+
+    cout << "Час виконання програми: " << duration << " мс" << endl;
 
     return 0;
 }*/
