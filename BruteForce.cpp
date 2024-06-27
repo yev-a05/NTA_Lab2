@@ -8,6 +8,8 @@
 #include <set>
 #include <algorithm>
 #include <windows.h>
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 using namespace chrono;
@@ -34,6 +36,26 @@ bool is_generator(long long a, long long p) {
         current = (current * a) % p;
     }
     return residues.size() == p - 1;
+}
+
+string format_duration(duration<double> elapsed) {
+    auto hrs = duration_cast<hours>(elapsed);
+    elapsed -= hrs;
+    auto mins = duration_cast<minutes>(elapsed);
+    elapsed -= mins;
+    auto secs = duration_cast<seconds>(elapsed);
+    elapsed -= secs;
+    auto millis = duration_cast<milliseconds>(elapsed);
+    elapsed -= millis;
+    auto micros = duration_cast<microseconds>(elapsed);
+
+    stringstream ss;
+    ss << setfill('0') << hrs.count() << ":"
+        << setw(2) << mins.count() << ":"
+        << setw(2) << secs.count() << "."
+        << setw(3) << millis.count()
+        << setw(3) << micros.count();
+    return ss.str();
 }
 
 int main() {
@@ -96,7 +118,7 @@ int main() {
     }
 
     auto end_time = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end_time - start_time).count();
+    auto duration = end_time - start_time;
 
     if (!solutions.empty()) {
         cout << "Знайдені розв'язки: ";
@@ -109,7 +131,8 @@ int main() {
         cout << "Розв'язок не знайдено." << endl;
     }
 
-    cout << "Час виконання програми: " << duration << " мс" << endl;
+    cout << "Час виконання програми: " << format_duration(duration) << endl;
 
     return 0;
 }*/
+

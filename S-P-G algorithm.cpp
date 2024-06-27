@@ -6,6 +6,8 @@
 #include <windows.h>
 #include <numeric>
 #include <chrono>
+#include <sstream>
+#include <iomanip>
 
 using namespace std;
 using namespace std::chrono;
@@ -148,6 +150,26 @@ int chineseRemainderTheorem(const vector<pair<int, int>>& congruences, int n) {
     return result % n;
 }
 
+string format_duration(duration<double> elapsed) {
+    auto hrs = duration_cast<hours>(elapsed);
+    elapsed -= hrs;
+    auto mins = duration_cast<minutes>(elapsed);
+    elapsed -= mins;
+    auto secs = duration_cast<seconds>(elapsed);
+    elapsed -= secs;
+    auto millis = duration_cast<milliseconds>(elapsed);
+    elapsed -= millis;
+    auto micros = duration_cast<microseconds>(elapsed);
+
+    stringstream ss;
+    ss << setfill('0') << hrs.count() << ":"
+        << setw(2) << mins.count() << ":"
+        << setw(2) << secs.count() << "."
+        << setw(3) << millis.count()
+        << setw(3) << micros.count();
+    return ss.str();
+}
+
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(1251);
@@ -223,13 +245,14 @@ int main() {
     int x = chineseRemainderTheorem(congruences, n);
 
     auto end_time = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end_time - start_time).count();
+    auto duration = duration_cast<milliseconds>(end_time - start_time);
 
     cout << "Дискретний логарифм x = " << x << endl;
-    cout << "Час виконання програми: " << duration << " мс" << endl;
+    cout << "Час виконання програми: " << format_duration(duration) << endl;
 
     return 0;
 }
+
 
 
 
